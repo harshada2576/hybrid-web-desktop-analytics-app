@@ -1,0 +1,19 @@
+# Python dependencies for IIT Bombay Analytics Backend
+# Django REST API with Pandas analytics
+
+# Core framework
+Django==4.2.9
+djangorestframework==3.14.0
+
+# CORS support for React/PyQt5 frontends
+django-cors-headers==4.3.1
+
+# Data processing
+pandas>=2.2.0
+numpy>=1.26.0
+
+# Testing
+requests==2.31.0
+
+# Development tools (optional but recommended)
+python-decouple==3.8
