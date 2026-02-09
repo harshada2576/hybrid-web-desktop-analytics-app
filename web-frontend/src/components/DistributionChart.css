@@ -1,0 +1,23 @@
+.distribution-chart {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.distribution-chart h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.chart-container {
+  height: 300px;
+  position: relative;
+}
+
+.no-data {
+  color: #999;
+  font-style: italic;
+}

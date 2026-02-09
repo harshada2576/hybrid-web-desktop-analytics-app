@@ -18,4 +18,7 @@ urlpatterns = [
     path('summary/', views.get_summary, name='summary'),
     path('distribution/', views.get_distribution, name='distribution'),
     path('history/', views.get_history, name='history'),
+    
+    # Report generation
+    path('report/pdf/', views.generate_pdf_report, name='pdf_report'),
 ]

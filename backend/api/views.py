@@ -40,6 +40,8 @@ from .services.analytics import (
     get_equipment_distribution,
     CSVValidationError
 )
+from .services.pdf_generator import generate_analytics_report
+from django.http import HttpResponse
 
 
 # ================================
@@ -356,5 +358,63 @@ def get_history(request):
     except Exception as e:
         return Response({
             'error': 'Failed to retrieve history',
+            'details': str(e)
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def generate_pdf_report(request):
+    """
+    Generate and download PDF analytical report.
+    
+    Endpoint: GET /api/report/pdf/
+    
+    Headers:
+        - Authorization: Token <token>
+    
+    Returns:
+        200: PDF file download
+        404: No datasets found
+        400: PDF generation error
+    """
+    try:
+        # Get the most recent dataset for this user
+        dataset = DatasetUpload.objects.filter(user=request.user).first()
+        
+        if not dataset:
+            return Response({
+                'error': 'No datasets found',
+                'details': 'Please upload a dataset first'
+            }, status=status.HTTP_404_NOT_FOUND)
+        
+        # Extract filename from uploaded file path
+        import os
+        dataset_filename = os.path.basename(dataset.file.name)
+        
+        # Get summary and distribution data
+        summary = dataset.summary_json
+        distribution = summary.get('equipment_distribution', [])
+        
+        # Generate PDF
+        pdf_buffer = generate_analytics_report(
+            dataset_filename=dataset_filename,
+            upload_timestamp=dataset.uploaded_at.isoformat(),
+            summary=summary,
+            distribution=distribution
+        )
+        
+        # Create HTTP response with PDF
+        response = HttpResponse(
+            pdf_buffer.getvalue(),
+            content_type='application/pdf'
+        )
+        response['Content-Disposition'] = f'attachment; filename="equipment_analytics_report.pdf"'
+        
+        return response
+    
+    except Exception as e:
+        return Response({
+            'error': 'Failed to generate PDF report',
             'details': str(e)
         }, status=status.HTTP_400_BAD_REQUEST)
