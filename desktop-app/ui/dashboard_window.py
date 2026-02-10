@@ -131,6 +131,24 @@ class DashboardWindow(QMainWindow):
         user_label = QLabel(f'Welcome, {self.username}')
         header.addWidget(user_label)
         
+        # Download report button
+        download_btn = QPushButton('Download Report (PDF)')
+        download_btn.clicked.connect(self.download_report)
+        download_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #2196F3;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                padding: 8px 16px;
+                margin-right: 10px;
+            }
+            QPushButton:hover {
+                background-color: #1976D2;
+            }
+        """)
+        header.addWidget(download_btn)
+        
         logout_btn = QPushButton('Logout')
         logout_btn.clicked.connect(self.handle_logout)
         logout_btn.setStyleSheet("""
@@ -372,6 +390,42 @@ class DashboardWindow(QMainWindow):
         self.figure.clear()
         self.canvas.draw()
     
+    def download_report(self):
+        """Handle PDF report download."""
+        try:
+            # Ask user where to save
+            file_path, _ = QFileDialog.getSaveFileName(
+                self,
+                'Save PDF Report',
+                'equipment_analytics_report.pdf',
+                'PDF Files (*.pdf)'
+            )
+            
+            if file_path:
+                # Download report
+                self.api_client.download_report(file_path)
+                QMessageBox.information(
+                    self, 
+                    'Success', 
+                    f'Report downloaded successfully to:\n{file_path}'
+                )
+        
+        except requests.HTTPError as e:
+            error_msg = 'Download failed'
+            if e.response is not None:
+                if e.response.status_code == 404:
+                    error_msg = 'No data available. Please upload a dataset first.'
+                else:
+                    try:
+                        error_data = e.response.json()
+                        error_msg = error_data.get('error', error_data.get('details', error_msg))
+                    except:
+                        error_msg = f'Download failed: {e.response.status_code}'
+            QMessageBox.critical(self, 'Download Error', error_msg)
+        
+        except Exception as e:
+            QMessageBox.critical(self, 'Download Error', f'Failed to download report: {str(e)}')
+    
     def handle_logout(self):
         """Handle logout button click."""
         reply = QMessageBox.question(
@@ -387,16 +441,17 @@ class DashboardWindow(QMainWindow):
             except:
                 pass  # Logout anyway
             
-            self.close()
-            
             # Show login window again
             from ui.login_window import LoginWindow
             self.login_window = LoginWindow(self.api_client)
             self.login_window.login_success.connect(self.on_relogin)
             self.login_window.show()
+            
+            # Close this dashboard
+            self.close()
     
     def on_relogin(self, username):
         """Handle successful re-login."""
         self.username = username
-        new_dashboard = DashboardWindow(self.api_client, username)
-        new_dashboard.show()
+        self.new_dashboard = DashboardWindow(self.api_client, username)
+        self.new_dashboard.show()

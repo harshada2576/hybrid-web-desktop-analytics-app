@@ -1,0 +1,16 @@
+Equipment Name,Type,Flowrate,Pressure,Temperature
+Pump A1,Pump,150.5,45.2,68.3
+Valve B2,Valve,120.0,38.5,72.1
+Compressor C3,Compressor,200.8,52.0,85.4
+Pump A2,Pump,145.2,43.8,67.9
+Valve B3,Valve,118.5,37.2,71.5
+Motor D1,Motor,175.3,48.6,78.2
+Pump A3,Pump,152.7,46.1,69.5
+Valve B4,Valve,125.4,39.8,73.0
+Compressor C4,Compressor,195.6,50.5,83.8
+Motor D2,Motor,180.2,49.3,79.6
+Pump A4,Pump,148.9,44.5,68.7
+Valve B5,Valve,122.3,38.9,72.5
+Motor D3,Motor,172.8,47.8,77.5
+Compressor C5,Compressor,198.4,51.2,84.9
+Pump A5,Pump,151.1,45.7,69.1

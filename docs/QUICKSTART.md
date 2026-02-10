@@ -52,7 +52,7 @@ python manage.py shell
 
 ```python
 from django.contrib.auth.models import User
-User.objects.create_user('testuser', 'test@example.com', 'testpass123')
+User.objects.create_user('testuser', 'test@example.com', 'TestPass123')
 exit()
 ```
 
@@ -66,7 +66,7 @@ Both web and desktop apps support registration.
 ### 1. Login
 
 - Username: `testuser`
-- Password: `testpass123`
+- Password: `TestPass123`
 
 ### 2. Upload CSV
 

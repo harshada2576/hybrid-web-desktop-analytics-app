@@ -12,7 +12,7 @@
 - [ ] Clear browser cache and localStorage
 - [ ] Close desktop app if running
 - [ ] Have `sample_equipment_data.csv` ready
-- [ ] Test user credentials ready (`testuser` / `testpass123`)
+- [ ] Test user credentials ready (`testuser` / `TestPass123`)
 - [ ] Screen recorder ready (OBS, QuickTime, etc.)
 - [ ] Audio microphone tested
 
@@ -43,7 +43,7 @@
 **ACTION:**
 
 - Type username: `testuser`
-- Type password: `testpass123`
+- Type password: `TestPass123`
 - Click "Login"
 
 **[SCREEN: Dashboard appears]**
@@ -83,7 +83,7 @@
 **ACTION:**
 
 - Enter username: `testuser`
-- Enter password: `testpass123`
+- Enter password: `TestPass123`
 - Click "Login"
 
 **[SCREEN: Desktop dashboard appears]**

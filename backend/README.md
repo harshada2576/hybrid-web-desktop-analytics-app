@@ -132,12 +132,12 @@ All data endpoints require token authentication.
 # Register
 curl -X POST http://127.0.0.1:8000/api/auth/register/ \
   -H "Content-Type: application/json" \
-  -d '{"username":"testuser","email":"test@test.com","password":"SecurePass123","password_confirm":"SecurePass123"}'
+  -d '{"username":"testuser","email":"test@test.com","password":"TestPass123","password_confirm":"TestPass123"}'
 
 # Login
 curl -X POST http://127.0.0.1:8000/api/auth/login/ \
   -H "Content-Type: application/json" \
-  -d '{"username":"testuser","password":"SecurePass123"}'
+  -d '{"username":"testuser","password":"TestPass123"}'
 ```
 
 ### Use Token

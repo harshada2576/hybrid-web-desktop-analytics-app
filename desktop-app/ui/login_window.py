@@ -37,15 +37,15 @@ class LoginWindow(QWidget):
     def init_ui(self):
         """Initialize user interface."""
         self.setWindowTitle('IIT Bombay Analytics - Login')
-        self.setFixedSize(400, 300)
+        self.setFixedSize(450, 450)
         
         # Center window on screen
         self.center_on_screen()
         
         # Main layout
         layout = QVBoxLayout()
-        layout.setSpacing(15)
-        layout.setContentsMargins(40, 40, 40, 40)
+        layout.setSpacing(12)
+        layout.setContentsMargins(50, 40, 50, 40)
         
         # Title
         title = QLabel('IIT Bombay Analytics')
@@ -63,35 +63,39 @@ class LoginWindow(QWidget):
         subtitle.setFont(subtitle_font)
         layout.addWidget(subtitle)
         
-        layout.addSpacing(20)
+        layout.addSpacing(30)
         
         # Username field
         username_label = QLabel('Username:')
+        label_font = QFont()
+        label_font.setPointSize(10)
+        username_label.setFont(label_font)
         layout.addWidget(username_label)
         
         self.username_input = QLineEdit()
         self.username_input.setPlaceholderText('Enter username')
-        self.username_input.setMinimumHeight(35)
+        self.username_input.setMinimumHeight(40)
         layout.addWidget(self.username_input)
         
         # Password field
         password_label = QLabel('Password:')
+        password_label.setFont(label_font)
         layout.addWidget(password_label)
         
         self.password_input = QLineEdit()
         self.password_input.setPlaceholderText('Enter password')
         self.password_input.setEchoMode(QLineEdit.Password)
-        self.password_input.setMinimumHeight(35)
+        self.password_input.setMinimumHeight(40)
         layout.addWidget(self.password_input)
         
         # Enable login on Enter key
         self.password_input.returnPressed.connect(self.handle_login)
         
-        layout.addSpacing(10)
+        layout.addSpacing(20)
         
         # Login button
         self.login_button = QPushButton('Login')
-        self.login_button.setMinimumHeight(40)
+        self.login_button.setMinimumHeight(45)
         self.login_button.clicked.connect(self.handle_login)
         self.login_button.setStyleSheet("""
             QPushButton {
@@ -99,7 +103,7 @@ class LoginWindow(QWidget):
                 color: white;
                 border: none;
                 border-radius: 4px;
-                font-size: 14px;
+                font-size: 15px;
                 font-weight: bold;
             }
             QPushButton:hover {

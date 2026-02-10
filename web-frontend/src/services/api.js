@@ -124,6 +124,18 @@ export const dataAPI = {
       headers: getAuthHeader()
     });
     return response.data;
+  },
+
+  /**
+   * Download PDF report
+   * @returns {Promise} PDF file blob
+   */
+  downloadReport: async () => {
+    const response = await axios.get(`${API_BASE_URL}/report/pdf/`, {
+      headers: getAuthHeader(),
+      responseType: 'blob'
+    });
+    return response.data;
   }
 };
 

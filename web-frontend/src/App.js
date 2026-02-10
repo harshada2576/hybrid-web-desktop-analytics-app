@@ -124,6 +124,34 @@ function App() {
     // Error already handled in handleUpload
   };
 
+  /**
+   * Handle PDF report download
+   */
+  const handleDownloadReport = async () => {
+    setLoading(true);
+    try {
+      const blob = await dataAPI.downloadReport();
+      
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'equipment_analytics_report.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        setError('No data available. Please upload a dataset first.');
+      } else {
+        setError('Failed to generate report. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Show login if not authenticated
   if (!isLoggedIn) {
     return <Login onLoginSuccess={handleLoginSuccess} />;
@@ -137,6 +165,13 @@ function App() {
           <h1>IIT Bombay Analytics Dashboard</h1>
           <div className="user-info">
             <span>Welcome, {user.username}</span>
+            <button 
+              onClick={handleDownloadReport} 
+              className="download-btn"
+              disabled={!summary || loading}
+            >
+              Download Report (PDF)
+            </button>
             <button onClick={handleLogout} className="logout-btn">
               Logout
             </button>

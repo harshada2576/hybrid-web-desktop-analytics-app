@@ -206,3 +206,26 @@ class APIClient:
             return data.get('history', [])
         else:
             response.raise_for_status()
+    
+    def download_report(self, save_path: str) -> bool:
+        """
+        Download PDF analytics report.
+        
+        Args:
+            save_path: Path where the PDF should be saved
+            
+        Returns:
+            True if successful
+            
+        Raises:
+            requests.HTTPError: If request fails
+        """
+        url = f"{self.base_url}/report/pdf/"
+        response = requests.get(url, headers=self._get_headers())
+        
+        if response.status_code == 200:
+            with open(save_path, 'wb') as f:
+                f.write(response.content)
+            return True
+        else:
+            response.raise_for_status()

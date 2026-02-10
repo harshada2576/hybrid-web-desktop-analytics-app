@@ -1,0 +1,11 @@
+Equipment Name,Type,Flowrate,Pressure,Temperature
+Turbine T1,Turbine,250.5,65.2,95.3
+Generator G1,Generator,220.0,58.5,88.1
+Reactor R1,Reactor,300.8,72.0,105.4
+Turbine T2,Turbine,245.2,63.8,93.9
+Generator G2,Generator,218.5,57.2,87.5
+Pump P1,Pump,175.3,48.6,78.2
+Turbine T3,Turbine,252.7,66.1,96.5
+Generator G3,Generator,225.4,59.8,89.0
+Reactor R2,Reactor,295.6,70.5,103.8
+Pump P2,Pump,180.2,49.3,79.6
